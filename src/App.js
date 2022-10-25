@@ -5,7 +5,7 @@ import SearchIcon from "./search.svg";
 
 //[] in useEffect hook is used to load it in the start
 
-const Api_url = " http://www.omdbapi.com/?i=tt3896198&apikey=29ee9fab";
+const Api_url = " https://www.omdbapi.com/?i=tt3896198&apikey=29ee9fab";
 
 const App = () => {
   const [movies, setmovies] = useState([]);
@@ -38,7 +38,7 @@ const App = () => {
         />
       </div>
 
-      {movies.length > 0 ? (
+      {movies?.length> 0 ? (
         <div className="container">
           {movies.map((movie) => (
             <Moviecard movie1={movie} />
