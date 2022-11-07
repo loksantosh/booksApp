@@ -2,51 +2,50 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Moviecard from "./Moviecard";
 import SearchIcon from "./search.svg";
-
 //[] in useEffect hook is used to load it in the start
 
-const Api_url = " https://www.omdbapi.com/?i=tt3896198&apikey=29ee9fab";
-
 const App = () => {
-  const [movies, setmovies] = useState([]);
+  const [books, setbooks] = useState([]);
 
   const [searchBox, setSearchBox] = useState("");
 
-  const searchMovies = async (title) => {
-    const response = await fetch(`${Api_url}&s=${title}`);
+  const searchBooks = async (search) => {
+    const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyBPCSuLhslvsmc8Jt7m_eckct4QyiVQINw`);
+
+    console.log(response)
     const data = await response.json();
-    setmovies(data.Search);
+    setbooks(data.Search);
   };
   useEffect(() => {
-    searchMovies("avengers");
+    searchBooks("harry");
   }, []);
-
+   
   return (
     <div className="App">
-      <h1>MoviePlex</h1>
+      <h1>Books Info</h1>
       <div className="search">
         <input
           type="text"
-          placeholder="search movie here"
+          placeholder="search Books here"
           value={searchBox}
           onChange={(e) => setSearchBox(e.target.value)}
         ></input>
         <img
           src={SearchIcon}
           alt="search"
-          onClick={() => searchMovies(searchBox)}
+          onClick={() => searchBooks(searchBox)}
         />
       </div>
 
-      {movies?.length> 0 ? (
+      {books?.length> 0 ? (
         <div className="container">
-          {movies.map((movie) => (
-            <Moviecard movie1={movie} />
+          {books.map((book) => (
+            <Moviecard movie1={book} />
           ))}
         </div>
       ) : (
         <div>
-          <h2>No movies found</h2>
+          <h2>No Books found</h2>
         </div>
       )}
     </div>
